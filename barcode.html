@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="JsBarcode.all.min.js"></script>
+    </head>
+    <body>
+        <svg id="barcode"></svg>
+    </body>
+    <script>
+        function getParameterByName(name, url) {
+        if (!url) {
+          url = window.location.href;
+        }
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        var barcodeid = getParameterByName('barcode');
+        var prints = getParameterByName('print');
+
+
+        if(prints == 1){
+            JsBarcode("#barcode", barcodeid, {
+                width:3,
+                height:25
+            });
+
+            window.print();
+        } else {
+            JsBarcode("#barcode", barcodeid, {
+                width:10,
+                height:50
+            });
+        }
+
+    </script>
+</html>
